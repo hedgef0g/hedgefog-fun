@@ -1,0 +1,54 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "hedgefog.fun", 
+  description = "Персональный хаб исследователя: прикладные AI-инструменты, игровая эссеистика и хроника преодоления." 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="ru" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/logo.png" />
+  </head>
+  <body class="bg-[#0f141c] text-[#e2e8f0] font-sans antialiased min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-[#1e293b]/70 backdrop-blur sticky top-0 z-50 bg-[#0f141c]/80">
+      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-3 font-semibold text-lg hover:text-[#38bdf8] transition-colors">
+          <img src="/logo.png" alt="hedgefog logo" class="w-8 h-8 rounded" />
+          <span>hedgefog<span class="text-[#38bdf8]">.fun</span></span>
+        </a>
+        <nav class="flex items-center gap-6 text-sm">
+          <a href="/blog" class="hover:text-[#38bdf8] transition-colors">Эссе и Блог</a>
+          <a href="/projects" class="hover:text-[#38bdf8] transition-colors">Проекты</a>
+          <a href="/support" class="bg-[#f59e0b]/10 text-[#fbbf24] border border-[#f59e0b]/30 px-3 py-1.5 rounded-lg hover:bg-[#f59e0b]/20 transition-all font-medium">Поддержать</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-[#1e293b]/70 py-6 text-sm text-slate-500">
+      <div class="max-w-4xl mx-auto px-4 flex justify-between items-center flex-wrap gap-4">
+        <span>© {new Date().getFullYear()} hedgefog.fun</span>
+        <div class="flex gap-4">
+          <a href="https://github.com/hedgef0g" target="_blank" class="hover:text-slate-300">GitHub</a>
+          <a href="/support" class="hover:text-amber-400">Помощь в лечении</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
