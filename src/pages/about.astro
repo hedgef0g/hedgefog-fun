@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Обо мне — hedgefog.fun" description="Профессиональный путь, проекты и личная история Ильи.">
   <div class="about-layout">
-    <div class="photo-placeholder" aria-label="Место для будущей фотографии">
-      <span>Фото появится здесь</span>
-    </div>
+    <figure class="profile-photo">
+      <img src={`${base}/ilia-kulikov.webp`} alt="Илья Куликов" width="720" height="720" />
+    </figure>
     <article>
       <p class="eyebrow">Обо мне</p>
       <h1 class="page-title">Илья — исследователь, автор и создатель инструментов.</h1>
@@ -24,7 +25,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li><time datetime="2025-11">Ноябрь 2025 — январь 2026</time><p>Четыре курса химиотерапии.</p></li>
           <li><time datetime="2026-02">Февраль 2026</time><p>Операции.</p></li>
           <li><time datetime="2026-03">Весна — лето 2026</time><p>Девять курсов химиотерапии по схеме FOLFOX.</p></li>
-          <li class="current"><time>Сейчас</time><p>Осложнение, которое требует дополнительного лечения и наблюдения.</p></li>
+          <li class="current"><time>Сейчас</time><p>Подозрение на канцероматоз брюшной полости, две экстренные госпитализации и несколько суток в стационаре на внутривенном питании.</p></li>
         </ol>
       </section>
     </article>
@@ -33,10 +34,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <style>
   .about-layout{display:grid;grid-template-columns:minmax(230px,.72fr) minmax(0,1.6fr);gap:clamp(2.2rem,7vw,6rem);align-items:start}
-  .photo-placeholder{aspect-ratio:4/5;display:grid;place-items:center;position:sticky;top:110px;border:1px dashed #49616b;border-radius:22px;background:linear-gradient(145deg,#15242c,#0e171d);color:#789099;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+  .profile-photo{position:sticky;top:110px;margin:0;border:1px solid var(--border);border-radius:22px;background:var(--surface);overflow:hidden;box-shadow:0 22px 60px rgb(0 0 0/.22)}.profile-photo img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
   .about-copy{max-width:760px;margin-top:2.2rem;color:#b3bfc4;font-size:1.04rem}.about-copy p+p{margin-top:1.35rem}
   .illness-story{max-width:760px;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border)}.illness-story .eyebrow{margin-bottom:.65rem}.illness-story h2{margin:0 0 1.5rem;font-size:clamp(1.6rem,4vw,2.25rem);letter-spacing:-.045em}
   .illness-story ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--border)}.illness-story li{display:grid;grid-template-columns:minmax(150px,.45fr) 1fr;gap:1.4rem;padding:1rem .15rem;border-bottom:1px solid var(--border)}.illness-story time{color:var(--cyan);font-size:.82rem;font-weight:750}.illness-story li p{margin:0;color:#b3bfc4}.illness-story li.current time{color:var(--amber)}
   @media(max-width:520px){.illness-story li{grid-template-columns:1fr;gap:.3rem}}
-  @media(max-width:760px){.about-layout{grid-template-columns:1fr}.photo-placeholder{position:static;max-width:360px;width:100%}.about-layout article{grid-row:1}.photo-placeholder{grid-row:2}}
+  @media(max-width:760px){.about-layout{grid-template-columns:1fr}.profile-photo{position:static;max-width:420px;width:100%}.about-layout article{grid-row:1}.profile-photo{grid-row:2}}
 </style>
