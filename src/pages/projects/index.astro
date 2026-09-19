@@ -15,13 +15,18 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   ) : (
     <div class="card-grid">
       {projects.map((project) => (
-        <a class="content-card" href={`${base}/projects/${project.id}`}>
+        <article class="content-card project-card">
           <small class="eyebrow">{project.data.status}</small>
-          <h2>{project.data.title}</h2>
+          <h2><a href={`${base}/projects/${project.id}`}>{project.data.title}</a></h2>
           <p>{project.data.description}</p>
           <div class="project-tech">{project.data.techStack.slice(0, 3).join(' · ')}</div>
-          <span class="card-link">Подробнее →</span>
-        </a>
+          <div class="project-actions">
+            <a class="details-link" href={`${base}/projects/${project.id}`}>Подробнее →</a>
+            {project.data.githubUrl && (
+              <a class="github-link" href={project.data.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
+            )}
+          </div>
+        </article>
       ))}
     </div>
   )}
@@ -29,4 +34,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <style>
   .page-lead{margin:1.2rem 0 3rem}
   .project-tech{margin-top:1rem;color:#778a92;font-size:.76rem}
+  .project-card h2 a:hover{color:var(--cyan)}
+  .project-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:auto;padding-top:1.4rem}
+  .project-actions a{font-size:.86rem;font-weight:750}
+  .details-link{color:var(--amber)}
+  .github-link{padding:.48rem .72rem;border:1px solid var(--border);border-radius:999px;color:#c2ccd0}
+  .github-link:hover{border-color:#4b626c;color:var(--text)}
 </style>

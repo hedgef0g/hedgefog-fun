@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf()).slice(0,3);
+const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
 const projects = (await getCollection('projects')).slice(0,2);
 ---
 <BaseLayout>
@@ -11,7 +11,7 @@ const projects = (await getCollection('projects')).slice(0,2);
       <p class="eyebrow">Hedgefog | Персональный хаб</p>
       <h1>Исследую системы.<br />Рассказываю истории.</h1>
       <p class="intro-text">Игры, социология, аналитика, разработка — и жизнь, которую приходится собирать заново.</p>
-      <a class="button" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>Свежий текст</a>
+      <a class="button" href={`${base}/about`}>Обо мне</a>
     </section>
     <section class="modules" aria-label="Основные разделы">
       <a class="module feature" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>
@@ -27,6 +27,28 @@ const projects = (await getCollection('projects')).slice(0,2);
       </a>
     </section>
   </div>
+  <section class="publication-feed" aria-labelledby="publication-feed-title">
+    <div class="feed-heading">
+      <div>
+        <p class="eyebrow">Публикации</p>
+        <h2 id="publication-feed-title">Свежие тексты</h2>
+      </div>
+      <a href={`${base}/blog`}>Все публикации →</a>
+    </div>
+    {posts.length ? (
+      <div class="feed-list">
+        {posts.slice(0, 6).map((post) => (
+          <a class="feed-row" href={`${base}/blog/${post.id}`}>
+            <time datetime={post.data.pubDate.toISOString()}>{post.data.pubDate.toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' })}</time>
+            <h3>{post.data.title}</h3>
+            <span aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <p class="feed-empty">Первые публикации готовятся. Здесь появятся их заголовки и даты.</p>
+    )}
+  </section>
 </BaseLayout>
 <style>
   .home-shell{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(2rem,6vw,5.5rem);align-items:center}
@@ -37,5 +59,10 @@ const projects = (await getCollection('projects')).slice(0,2);
   .module:hover{border-color:#43616c;transform:translateY(-2px)}.module.feature{grid-column:1/-1;min-height:270px;background:linear-gradient(135deg,#19383c,var(--surface-2) 72%)}
   .module small{color:var(--cyan);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.module h2{max-width:540px;margin:1.3rem 0 .7rem;font-size:clamp(1.55rem,3.3vw,2.55rem);line-height:1.05;letter-spacing:-.05em}
   .module:not(.feature) h2{font-size:clamp(1.35rem,2.5vw,1.8rem)}.module p{margin:0;color:var(--muted)}.module span{margin-top:auto;padding-top:1.5rem;color:var(--amber);font-size:.84rem;font-weight:750}
+  .publication-feed{margin-top:clamp(4rem,9vw,8rem);padding-top:clamp(2rem,5vw,3.5rem);border-top:1px solid var(--border)}
+  .feed-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:1.4rem}.feed-heading .eyebrow{margin-bottom:.65rem}.feed-heading h2{margin:0;font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.05em}.feed-heading>a{padding-bottom:.35rem;color:var(--amber);font-size:.85rem;font-weight:750}
+  .feed-list{border-top:1px solid var(--border)}.feed-row{display:grid;grid-template-columns:minmax(150px,.32fr) 1fr auto;align-items:center;gap:1.5rem;padding:1.15rem .25rem;border-bottom:1px solid var(--border);transition:color .18s ease,background .18s ease}.feed-row:hover{color:var(--cyan);background:rgb(120 213 210/.035)}.feed-row time{color:var(--muted);font-size:.8rem}.feed-row h3{margin:0;font-size:1.03rem;font-weight:650}.feed-row>span{color:var(--amber)}
+  .feed-empty{margin:0;padding:1.4rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);color:var(--muted)}
   @media(max-width:850px){.home-shell{grid-template-columns:1fr}.intro{padding-block:0 1rem}}@media(max-width:520px){.modules{grid-template-columns:1fr;padding:.7rem}.module.feature{grid-column:auto;min-height:245px}}
+  @media(max-width:560px){.feed-heading{align-items:flex-start;flex-direction:column}.feed-row{grid-template-columns:1fr auto;gap:.35rem 1rem}.feed-row time{grid-column:1/-1}.feed-row h3{grid-column:1}}
 </style>
