@@ -6,17 +6,19 @@ const projects = await getCollection('projects');
 ---
 
 <BaseLayout title="Проекты — hedgefog.fun">
-  <h1 class="text-3xl font-bold text-white mb-8">Проекты и инструменты</h1>
+  <p class="eyebrow">Практическая работа</p>
+  <h1 class="page-title">Проекты и инструменты</h1>
+  <p class="page-lead">Продукты и эксперименты на пересечении данных, автоматизации и игр.</p>
   {projects.length === 0 ? (
-    <p class="text-slate-400">Раздел готовится к публикации.</p>
+    <p class="empty-state">Раздел готовится к публикации.</p>
   ) : (
-    <div class="grid sm:grid-cols-2 gap-4">
+    <div class="card-grid">
       {projects.map((project) => (
-        <article class="bg-[#131b26] border border-slate-800 rounded-xl p-5">
-          <h2 class="text-xl font-semibold text-white">{project.data.title}</h2>
-          <p class="text-slate-400 mt-2">{project.data.description}</p>
+        <article class="content-card">
+          <small class="eyebrow">{project.data.status}</small><h2>{project.data.title}</h2><p>{project.data.description}</p>
         </article>
       ))}
     </div>
   )}
 </BaseLayout>
+<style>.page-lead{margin:1.2rem 0 3rem}</style>

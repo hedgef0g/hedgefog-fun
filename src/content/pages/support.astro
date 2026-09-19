@@ -1,40 +1,27 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 ---
-
 <BaseLayout title="Поддержать лечение — hedgefog.fun">
-  <div class="max-w-2xl mx-auto">
-    <h1 class="text-3xl font-bold text-white mb-4">Поддержка лечения</h1>
-    <div class="prose prose-invert text-slate-300 mb-8 leading-relaxed space-y-4">
-      <p>
-        Я открыто делюсь своим опытом прохождения через онкологический диагноз и терапию. Лечение требует значительных ресурсов — покупка специализированных препаратов, анализы, восстановительные процедуры и обследования.
-      </p>
-      <p>
-        Если вам интересны мои тексты, полезны разработанные инструменты или вы просто хотите помочь мне пройти этот путь — любая поддержка будет огромным вкладом.
-      </p>
+  <div class="support-page">
+    <p class="eyebrow">Помочь проекту и лечению</p>
+    <h1 class="page-title">Поддержка</h1>
+    <div class="support-copy">
+      <p>Я открыто делюсь своим опытом прохождения через онкологический диагноз и терапию. Лечение требует значительных ресурсов — покупки специализированных препаратов, анализов, восстановительных процедур и обследований.</p>
+      <p>Если вам интересны мои тексты, полезны разработанные инструменты или вы просто хотите помочь мне пройти этот путь — любая поддержка будет огромным вкладом.</p>
     </div>
-
-    <!-- Реквизиты -->
-    <div class="bg-[#161f2e] border border-slate-800 rounded-xl p-6 space-y-5">
-      <h2 class="text-lg font-semibold text-white">Способы перевода</h2>
-      
-      <div class="space-y-3">
-        <div class="bg-[#0f141c] p-4 rounded-lg border border-slate-800 flex justify-between items-center">
-          <div>
-            <div class="text-xs text-slate-400">Банковская карта (РФ / СБП)</div>
-            <div class="font-mono text-sm text-slate-200 mt-1">0000 0000 0000 0000</div>
-          </div>
-          <span class="text-xs text-slate-500">Т-Банк / Сбер</span>
-        </div>
-
-        <div class="bg-[#0f141c] p-4 rounded-lg border border-slate-800 flex justify-between items-center">
-          <div>
-            <div class="text-xs text-slate-400">USDT (TRC20)</div>
-            <div class="font-mono text-xs text-slate-200 mt-1 truncate max-w-[280px]">Адрес кошелька...</div>
-          </div>
-          <span class="text-xs text-slate-500">Криптовалюта</span>
-        </div>
+    <div class="support-card">
+      <h2>Способы перевода</h2>
+      <div class="payment-list">
+        <div class="payment-row"><div><small>Банковская карта (РФ / СБП)</small><strong>0000 0000 0000 0000</strong></div><span>Т-Банк / Сбер</span></div>
+        <div class="payment-row"><div><small>USDT (TRC20)</small><strong>Адрес кошелька...</strong></div><span>Криптовалюта</span></div>
       </div>
     </div>
   </div>
 </BaseLayout>
+<style>
+  .support-page{max-width:760px;margin-inline:auto}.support-copy{margin:1.5rem 0 2.5rem;color:var(--muted);font-size:1.04rem}
+  .support-card{padding:clamp(1.3rem,4vw,2rem);border:1px solid var(--border);border-radius:20px;background:var(--surface)}.support-card h2{margin:0 0 1.25rem}
+  .payment-list{display:grid;gap:.8rem}.payment-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid var(--border);border-radius:13px;background:var(--bg)}
+  .payment-row small,.payment-row span{color:var(--muted)}.payment-row strong{display:block;margin-top:.25rem;font-family:ui-monospace,monospace;font-size:.88rem}
+  @media(max-width:520px){.payment-row{align-items:flex-start;flex-direction:column}}
+</style>

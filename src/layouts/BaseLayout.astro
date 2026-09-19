@@ -9,6 +9,7 @@ const {
   description = "Персональный хаб исследователя: прикладные AI-инструменты, игровая эссеистика и хроника преодоления." 
 } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import '../styles/global.css';
 ---
 
 <!doctype html>
@@ -20,36 +21,47 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     <meta name="description" content={description} />
     <link rel="icon" type="image/png" href={`${base}/logo.png`} />
   </head>
-  <body class="bg-[#0f141c] text-[#e2e8f0] font-sans antialiased min-h-screen flex flex-col">
-    <!-- Header -->
-    <header class="border-b border-[#1e293b]/70 backdrop-blur sticky top-0 z-50 bg-[#0f141c]/80">
-      <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a href={`${base}/`} class="flex items-center gap-3 font-semibold text-lg hover:text-[#38bdf8] transition-colors">
-          <img src={`${base}/logo.png`} alt="hedgefog logo" class="w-8 h-8 rounded" />
-          <span>hedgefog<span class="text-[#38bdf8]">.fun</span></span>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <a href={`${base}/`} class="brand" aria-label="hedgefog.fun — главная">
+          <img src={`${base}/logo.png`} alt="" />
+          <span>hedgefog<strong>.fun</strong></span>
         </a>
-        <nav class="flex items-center gap-6 text-sm">
-          <a href={`${base}/blog`} class="hover:text-[#38bdf8] transition-colors">Эссе и Блог</a>
-          <a href={`${base}/projects`} class="hover:text-[#38bdf8] transition-colors">Проекты</a>
-          <a href={`${base}/support`} class="bg-[#f59e0b]/10 text-[#fbbf24] border border-[#f59e0b]/30 px-3 py-1.5 rounded-lg hover:bg-[#f59e0b]/20 transition-all font-medium">Поддержать</a>
+        <nav aria-label="Основная навигация">
+          <a href={`${base}/`}>Главная</a>
+          <a href={`${base}/blog`}>Блог</a>
+          <a href={`${base}/projects`}>Проекты</a>
+          <a href={`${base}/support`} class="support-link">Поддержать</a>
         </nav>
       </div>
     </header>
-
-    <!-- Main Content -->
-    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-10">
+    <main class="site-main">
       <slot />
     </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-[#1e293b]/70 py-6 text-sm text-slate-500">
-      <div class="max-w-4xl mx-auto px-4 flex justify-between items-center flex-wrap gap-4">
+    <footer class="site-footer">
+      <div class="footer-inner">
         <span>© {new Date().getFullYear()} hedgefog.fun</span>
-        <div class="flex gap-4">
-          <a href="https://github.com/hedgef0g" target="_blank" class="hover:text-slate-300">GitHub</a>
-          <a href={`${base}/support`} class="hover:text-amber-400">Помощь в лечении</a>
+        <div>
+          <a href="https://github.com/hedgef0g" target="_blank" rel="noreferrer">GitHub</a>
+          <a href={`${base}/support`}>Помощь в лечении</a>
         </div>
       </div>
     </footer>
   </body>
 </html>
+
+<style is:global>
+  .site-header{position:sticky;z-index:20;top:0;border-bottom:1px solid rgb(38 54 64/.9);background:rgb(14 23 30/.88);backdrop-filter:blur(16px)}
+  .header-inner,.site-main,.footer-inner{width:min(1120px,calc(100% - 2rem));margin-inline:auto}
+  .header-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+  .brand{display:flex;align-items:center;gap:.75rem;font-size:1.22rem;font-weight:800;letter-spacing:-.045em}
+  .brand img{width:42px;height:42px;border-radius:12px;object-fit:cover;object-position:center 27%}
+  .brand strong{color:var(--amber);font-weight:500}
+  .site-header nav{display:flex;align-items:center;gap:1.65rem;color:#b1bdc3;font-size:.88rem}
+  .site-header nav a{transition:color .18s ease}.site-header nav a:hover{color:var(--text)}.site-header .support-link{color:var(--amber)}
+  .site-main{min-height:calc(100vh - 160px);padding-block:clamp(3rem,7vw,6.5rem)}
+  .site-footer{border-top:1px solid var(--border);color:#788991;font-size:.82rem}
+  .footer-inner{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.footer-inner div{display:flex;gap:1.2rem}
+  @media(max-width:620px){.site-header nav a:not(.support-link){display:none}.header-inner,.site-main,.footer-inner{width:min(100% - 1.25rem,1120px)}.footer-inner{align-items:flex-start;flex-direction:column;justify-content:center}}
+</style>

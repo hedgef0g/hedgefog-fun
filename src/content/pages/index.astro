@@ -1,85 +1,41 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-
-const posts = (await getCollection('blog')).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-).slice(0, 3);
-
-const projects = (await getCollection('projects')).slice(0, 2);
+const posts = (await getCollection('blog')).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf()).slice(0,3);
+const projects = (await getCollection('projects')).slice(0,2);
 ---
-
 <BaseLayout>
-  <!-- Hero -->
-  <section class="mb-14">
-    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-white">
-      Персональный хаб, эссе об играх, софт и хроника борьбы с болезнью
-    </h1>
-    <p class="text-lg text-slate-400 leading-relaxed max-w-2xl mb-6">
-      Здесь я делюсь эссе о нарративах и культуре видеоигр, выкладываю инструменты и AI-надстройки, которые разрабатываю для анализа данных, и открыто веду дневник лечения онкологии.
-    </p>
-    <div class="flex items-center gap-4">
-      <a href={`${base}/blog`} class="bg-[#1e293b] hover:bg-[#334155] text-white px-4 py-2 rounded-lg border border-slate-700 transition-colors">Читать блог</a>
-      <a href={`${base}/support`} class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 px-4 py-2 rounded-lg transition-colors">Как помочь лечению →</a>
-    </div>
-  </section>
-
-  <!-- Текущий статус / Чекпоинт -->
-  <div class="bg-[#161f2e] border border-slate-800 rounded-xl p-5 mb-14">
-    <div class="flex items-center gap-2 mb-2">
-      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-      <h2 class="text-xs uppercase tracking-wider font-semibold text-slate-400">Текущий статус</h2>
-    </div>
-    <p class="text-slate-300 text-sm">
-      <strong>Терапия:</strong> Прохождение планового лечения. <br/>
-      <strong>В разработке:</strong> Обновление статистического макроса и новое эссе об игровых мирах.
-    </p>
+  <div class="home-shell">
+    <section class="intro">
+      <p class="eyebrow">Персональный хаб Ильи</p>
+      <h1>Исследую системы.<br />Рассказываю истории.</h1>
+      <p class="intro-text">Игры, социология, аналитика, разработка — и жизнь, которую приходится собирать заново.</p>
+      <a class="button" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>Начать с главного текста</a>
+    </section>
+    <section class="modules" aria-label="Основные разделы">
+      <a class="module feature" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>
+        <small>В фокусе</small><h2>{posts[0]?.data.title ?? 'Субъективное восприятие времени'}</h2>
+        <p>{posts[0]?.data.description ?? 'The Longing, ожидание и личный опыт онкологии.'}</p><span>Читать эссе →</span>
+      </a>
+      <a class="module" href={`${base}/projects`}>
+        <small>Проекты</small><h2>Инструменты</h2>
+        <p>{projects.length ? projects.map((project) => project.data.title).join(' · ') : 'Gamer Lair · Research Signal'}</p><span>Смотреть проекты →</span>
+      </a>
+      <a class="module" href={`${base}/support`}>
+        <small>Статус</small><h2>На связи</h2><p>Пишу новый материал и продолжаю разработку.</p><span>Поддержать →</span>
+      </a>
+    </section>
   </div>
-
-  <!-- Витрина проектов -->
-  <section class="mb-14">
-    <div class="flex justify-between items-baseline mb-6">
-      <h2 class="text-2xl font-bold text-white">Проекты и инструменты</h2>
-      <a href={`${base}/projects`} class="text-sm text-[#38bdf8] hover:underline">Все проекты →</a>
-    </div>
-    <div class="grid sm:grid-cols-2 gap-4">
-      {projects.map((p) => (
-        <div class="bg-[#131b26] border border-slate-800/80 rounded-xl p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex justify-between items-start gap-2 mb-2">
-              <h3 class="text-lg font-semibold text-white">{p.data.title}</h3>
-              <span class="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded border border-slate-700">{p.data.status}</span>
-            </div>
-            <p class="text-sm text-slate-400 mb-4">{p.data.description}</p>
-          </div>
-          <div class="flex flex-wrap gap-1.5 mt-auto">
-            {p.data.techStack.map(tech => (
-              <span class="text-[11px] bg-slate-900 text-slate-400 px-2 py-0.5 rounded">{tech}</span>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Свежее в блоге -->
-  <section>
-    <div class="flex justify-between items-baseline mb-6">
-      <h2 class="text-2xl font-bold text-white">Свежие тексты</h2>
-      <a href={`${base}/blog`} class="text-sm text-[#38bdf8] hover:underline">Все записи →</a>
-    </div>
-    <div class="space-y-4">
-      {posts.map((post) => (
-        <a href={`${base}/blog/${post.id}`} class="block bg-[#131b26] hover:bg-[#182230] border border-slate-800/80 rounded-xl p-5 transition-colors">
-          <div class="text-xs text-slate-500 mb-1">
-            {post.data.pubDate.toLocaleDateString('ru-RU')} • <span class="capitalize text-slate-400">{post.data.category}</span>
-          </div>
-          <h3 class="text-lg font-semibold text-white mb-2">{post.data.title}</h3>
-          <p class="text-sm text-slate-400">{post.data.description}</p>
-        </a>
-      ))}
-    </div>
-  </section>
 </BaseLayout>
+<style>
+  .home-shell{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:clamp(2rem,6vw,5.5rem);align-items:center}
+  .intro{padding-block:2rem}.intro h1{max-width:620px;margin:0;font-size:clamp(3rem,6.6vw,5.7rem);line-height:.94;letter-spacing:-.07em}
+  .intro-text{max-width:520px;margin:1.8rem 0 2.2rem;color:var(--muted);font-size:clamp(1rem,1.7vw,1.18rem)}
+  .modules{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1rem;border-radius:24px;background:rgb(17 26 33/.78)}
+  .module{display:flex;min-height:220px;flex-direction:column;padding:clamp(1.35rem,3vw,2rem);border:1px solid var(--border);border-radius:17px;background:var(--surface-2);transition:border-color .18s ease,transform .18s ease}
+  .module:hover{border-color:#43616c;transform:translateY(-2px)}.module.feature{grid-column:1/-1;min-height:270px;background:linear-gradient(135deg,#19383c,var(--surface-2) 72%)}
+  .module small{color:var(--cyan);font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.module h2{max-width:540px;margin:1.3rem 0 .7rem;font-size:clamp(1.55rem,3.3vw,2.55rem);line-height:1.05;letter-spacing:-.05em}
+  .module:not(.feature) h2{font-size:clamp(1.35rem,2.5vw,1.8rem)}.module p{margin:0;color:var(--muted)}.module span{margin-top:auto;padding-top:1.5rem;color:var(--amber);font-size:.84rem;font-weight:750}
+  @media(max-width:850px){.home-shell{grid-template-columns:1fr}.intro{padding-block:0 1rem}}@media(max-width:520px){.modules{grid-template-columns:1fr;padding:.7rem}.module.feature{grid-column:auto;min-height:245px}}
+</style>
