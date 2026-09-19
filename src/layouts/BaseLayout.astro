@@ -42,9 +42,16 @@ import '../styles/global.css';
     </main>
     <footer class="site-footer">
       <div class="footer-inner">
-        <span>© {new Date().getFullYear()} hedgefog.fun</span>
-        <div>
-          <a href="https://github.com/hedgef0g" target="_blank" rel="noreferrer">GitHub</a>
+        <span class="copyright">© {new Date().getFullYear()} hedgefog.fun</span>
+        <nav class="social-links" aria-label="Социальные сети">
+          <a href="https://t.me/Hedgefog" target="_blank" rel="me noreferrer">Telegram</a>
+          <a href="https://x.com/hedgef0g" target="_blank" rel="me noreferrer">X.com</a>
+          <a href="https://www.youtube.com/@Hedgef0g" target="_blank" rel="me noreferrer">YouTube</a>
+          <a href="https://www.twitch.tv/hedgefoggwp" target="_blank" rel="me noreferrer">Twitch</a>
+          <a href="https://steamcommunity.com/id/hedgef0g/" target="_blank" rel="me noreferrer">Steam</a>
+          <a href="https://github.com/hedgef0g" target="_blank" rel="me noreferrer">GitHub</a>
+        </nav>
+        <div class="footer-support">
           <a href={`${base}/support`}>Помощь в лечении</a>
         </div>
       </div>
@@ -63,6 +70,9 @@ import '../styles/global.css';
   .site-header nav a{transition:color .18s ease}.site-header nav a:hover{color:var(--text)}.site-header .support-link{color:var(--amber)}
   .site-main{min-height:calc(100vh - 160px);padding-block:clamp(3rem,7vw,6.5rem)}
   .site-footer{border-top:1px solid var(--border);color:#788991;font-size:.82rem}
-  .footer-inner{min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:1rem}.footer-inner div{display:flex;gap:1.2rem}
-  @media(max-width:620px){.site-header nav a:not(.support-link){display:none}.header-inner,.site-main,.footer-inner{width:min(100% - 1.25rem,1120px)}.footer-inner{align-items:flex-start;flex-direction:column;justify-content:center}}
+  .footer-inner{min-height:100px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:1.5rem}
+  .social-links{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:.55rem 1rem}
+  .social-links a,.footer-support a{transition:color .18s ease}.social-links a:hover{color:var(--cyan)}.footer-support a{color:var(--amber)}.footer-support a:hover{color:#f0bf89}
+  @media(max-width:820px){.footer-inner{grid-template-columns:1fr auto;padding-block:1.4rem}.social-links{grid-column:1/-1;grid-row:2;justify-content:flex-start}}
+  @media(max-width:620px){.site-header nav a:not(.support-link){display:none}.header-inner,.site-main,.footer-inner{width:min(100% - 1.25rem,1120px)}.footer-inner{grid-template-columns:1fr;align-items:start}.social-links{grid-column:1;grid-row:auto}.footer-support{grid-row:2}}
 </style>
