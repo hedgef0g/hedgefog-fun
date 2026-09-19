@@ -8,10 +8,10 @@ const projects = (await getCollection('projects')).slice(0,2);
 <BaseLayout>
   <div class="home-shell">
     <section class="intro">
-      <p class="eyebrow">Персональный хаб Ильи</p>
+      <p class="eyebrow">Hedgefog | Персональный хаб</p>
       <h1>Исследую системы.<br />Рассказываю истории.</h1>
       <p class="intro-text">Игры, социология, аналитика, разработка — и жизнь, которую приходится собирать заново.</p>
-      <a class="button" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>Начать с главного текста</a>
+      <a class="button" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>Свежий текст</a>
     </section>
     <section class="modules" aria-label="Основные разделы">
       <a class="module feature" href={posts[0] ? `${base}/blog/${posts[0].id}` : `${base}/blog`}>

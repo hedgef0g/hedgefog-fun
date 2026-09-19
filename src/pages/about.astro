@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Обо мне — hedgefog.fun" description="Профессиональный путь, проекты и личная история Ильи.">
+  <div class="about-layout">
+    <div class="photo-placeholder" aria-label="Место для будущей фотографии">
+      <span>Фото появится здесь</span>
+    </div>
+    <article>
+      <p class="eyebrow">Обо мне</p>
+      <h1 class="page-title">Илья — исследователь, автор и создатель инструментов.</h1>
+      <div class="about-copy">
+        <p>Я работаю в маркетинговых и социальных исследованиях и прошёл путь от анализа данных и статистической обработки до управления исследовательскими проектами. Сейчас моя профессиональная роль — Lead Research Manager: я соединяю методологию, данные и задачи бизнеса, стараясь превращать сложные результаты в понятные решения.</p>
+        <p>Параллельно я разрабатываю собственные инструменты. Research Insights Toolkit автоматизирует проверку статистической значимости в Excel, а Gamer Lair помогает организовать большую игровую библиотеку в Playnite. Мне интересны практическая аналитика, автоматизация и системы, которые снимают с человека рутинную работу.</p>
+        <p>Игры для меня — не только развлечение, но и язык для разговора об обществе, культуре и личном опыте. Здесь появляются эссе о видеоиграх, социологических концепциях и субъективном восприятии времени. Ещё я играю на гитаре, интересуюсь историей, технологиями и научно-популярной литературой.</p>
+        <p>Отдельная часть этого сайта — жизнь после онкологического диагноза. Я прохожу лечение и честно пишу о том, как болезнь перестраивает планы, работу и ощущение времени. Это не медицинский блог, а личная хроника попытки продолжать исследовать, создавать и жить.</p>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-layout{display:grid;grid-template-columns:minmax(230px,.72fr) minmax(0,1.6fr);gap:clamp(2.2rem,7vw,6rem);align-items:start}
+  .photo-placeholder{aspect-ratio:4/5;display:grid;place-items:center;position:sticky;top:110px;border:1px dashed #49616b;border-radius:22px;background:linear-gradient(145deg,#15242c,#0e171d);color:#789099;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+  .about-copy{max-width:760px;margin-top:2.2rem;color:#b3bfc4;font-size:1.04rem}.about-copy p+p{margin-top:1.35rem}
+  @media(max-width:760px){.about-layout{grid-template-columns:1fr}.photo-placeholder{position:static;max-width:360px;width:100%}.about-layout article{grid-row:1}.photo-placeholder{grid-row:2}}
+</style>

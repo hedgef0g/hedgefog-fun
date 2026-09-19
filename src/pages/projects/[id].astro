@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({ params: { id: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title={`${project.data.title} — hedgefog.fun`} description={project.data.description}>
+  <article class="project-page">
+    <a class="back-link" href={`${base}/projects`}>← Все проекты</a>
+    <p class="eyebrow">{project.data.status}</p>
+    <h1 class="page-title">{project.data.title}</h1>
+    <p class="project-lead">{project.data.description}</p>
+    <div class="tech-list" aria-label="Технологии">
+      {project.data.techStack.map((item) => <span>{item}</span>)}
+    </div>
+    <div class="project-body"><Content /></div>
+    {project.data.githubUrl && (
+      <a class="button github-button" href={project.data.githubUrl} target="_blank" rel="noreferrer">Открыть на GitHub ↗</a>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .project-page{max-width:820px;margin-inline:auto}.back-link{display:inline-block;margin-bottom:2.4rem;color:var(--muted);font-size:.88rem}.back-link:hover{color:var(--text)}
+  .project-lead{max-width:720px;margin:1.4rem 0;color:var(--muted);font-size:1.15rem}.tech-list{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.7rem 0 3rem}.tech-list span{padding:.4rem .7rem;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:#b9c5ca;font-size:.76rem}
+  .project-body{padding-top:2.4rem;border-top:1px solid var(--border);font-size:1.02rem}.project-body :global(h3){margin:2.2rem 0 .8rem;font-size:1.35rem}.project-body :global(p),.project-body :global(li){color:#b4c0c5}.project-body :global(li+li){margin-top:.45rem}
+  .github-button{margin-top:2.2rem}
+</style>

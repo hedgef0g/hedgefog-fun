@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout title="Проекты — hedgefog.fun">
@@ -14,11 +15,18 @@ const projects = await getCollection('projects');
   ) : (
     <div class="card-grid">
       {projects.map((project) => (
-        <article class="content-card">
-          <small class="eyebrow">{project.data.status}</small><h2>{project.data.title}</h2><p>{project.data.description}</p>
-        </article>
+        <a class="content-card" href={`${base}/projects/${project.id}`}>
+          <small class="eyebrow">{project.data.status}</small>
+          <h2>{project.data.title}</h2>
+          <p>{project.data.description}</p>
+          <div class="project-tech">{project.data.techStack.slice(0, 3).join(' · ')}</div>
+          <span class="card-link">Подробнее →</span>
+        </a>
       ))}
     </div>
   )}
 </BaseLayout>
-<style>.page-lead{margin:1.2rem 0 3rem}</style>
+<style>
+  .page-lead{margin:1.2rem 0 3rem}
+  .project-tech{margin-top:1rem;color:#778a92;font-size:.76rem}
+</style>
