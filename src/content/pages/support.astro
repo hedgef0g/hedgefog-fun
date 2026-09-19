@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
+
 <BaseLayout title="Поддержать лечение — hedgefog.fun">
   <div class="support-page">
     <p class="eyebrow">Помочь проекту и лечению</p>
@@ -9,19 +11,42 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
       <p>Я открыто делюсь своим опытом прохождения через онкологический диагноз и терапию. Лечение требует значительных ресурсов — покупки специализированных препаратов, анализов, восстановительных процедур и обследований.</p>
       <p>Если вам интересны мои тексты, полезны разработанные инструменты или вы просто хотите помочь мне пройти этот путь — любая поддержка будет огромным вкладом.</p>
     </div>
-    <div class="support-card">
-      <h2>Способы перевода</h2>
-      <div class="payment-list">
-        <div class="payment-row"><div><small>Банковская карта (РФ / СБП)</small><strong>0000 0000 0000 0000</strong></div><span>Т-Банк / Сбер</span></div>
-        <div class="payment-row"><div><small>USDT (TRC20)</small><strong>Адрес кошелька...</strong></div><span>Криптовалюта</span></div>
+
+    <section class="support-card" aria-labelledby="tbank-heading">
+      <div class="transfer-copy">
+        <p class="eyebrow">Перевод через Т‑Банк</p>
+        <h2 id="tbank-heading">Поддержать лечение</h2>
+        <p>Откройте страницу сбора по кнопке или отсканируйте QR-код в банковском приложении.</p>
+        <a class="button" href="https://tbank.ru/cf/Lj0StpkKcG" target="_blank" rel="noreferrer">Перейти к переводу ↗</a>
       </div>
-    </div>
+      <a class="qr-link" href="https://tbank.ru/cf/Lj0StpkKcG" target="_blank" rel="noreferrer" aria-label="Открыть страницу перевода в Т-Банке">
+        <img src={`${base}/tbank-qr.jpg`} alt="QR-код для перевода Илье Куликову через Т-Банк" />
+      </a>
+    </section>
+
+    <details class="bank-details">
+      <summary>Реквизиты для пополнения счёта</summary>
+      <dl>
+        <div><dt>Получатель</dt><dd>Куликов Илья Витальевич</dd></div>
+        <div><dt>Номер счёта</dt><dd>42301810900090524774</dd></div>
+        <div><dt>БИК</dt><dd>044525974</dd></div>
+        <div><dt>Банк-получатель</dt><dd>АО «ТБанк»</dd></div>
+        <div><dt>Корр. счёт</dt><dd>30101810145250000974</dd></div>
+        <div class="wide"><dt>Назначение платежа</dt><dd>Перевод средств по договору № 8077224482 Куликов Илья Витальевич НДС не облагается</dd></div>
+        <div><dt>ИНН</dt><dd>7710140679</dd></div>
+        <div><dt>КПП</dt><dd>771301001</dd></div>
+      </dl>
+    </details>
   </div>
 </BaseLayout>
+
 <style>
-  .support-page{max-width:760px;margin-inline:auto}.support-copy{margin:1.5rem 0 2.5rem;color:var(--muted);font-size:1.04rem}
-  .support-card{padding:clamp(1.3rem,4vw,2rem);border:1px solid var(--border);border-radius:20px;background:var(--surface)}.support-card h2{margin:0 0 1.25rem}
-  .payment-list{display:grid;gap:.8rem}.payment-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem;border:1px solid var(--border);border-radius:13px;background:var(--bg)}
-  .payment-row small,.payment-row span{color:var(--muted)}.payment-row strong{display:block;margin-top:.25rem;font-family:ui-monospace,monospace;font-size:.88rem}
-  @media(max-width:520px){.payment-row{align-items:flex-start;flex-direction:column}}
+  .support-page{max-width:860px;margin-inline:auto}.support-copy{max-width:760px;margin:1.5rem 0 2.5rem;color:var(--muted);font-size:1.04rem}
+  .support-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,300px);align-items:center;gap:clamp(1.5rem,5vw,3.5rem);padding:clamp(1.3rem,4vw,2.2rem);border:1px solid var(--border);border-radius:22px;background:linear-gradient(135deg,#17363a,var(--surface) 62%)}
+  .transfer-copy .eyebrow{margin-bottom:.65rem}.transfer-copy h2{margin:0;font-size:clamp(1.65rem,4vw,2.4rem);letter-spacing:-.045em}.transfer-copy>p:not(.eyebrow){margin:1rem 0 1.6rem;color:#b3c0c5}
+  .qr-link{display:block;padding:.65rem;border-radius:18px;background:#fff;box-shadow:0 14px 40px rgb(0 0 0/.24);transition:transform .18s ease}.qr-link:hover{transform:translateY(-2px)}.qr-link img{display:block;width:100%;height:auto;border-radius:11px}
+  .bank-details{margin-top:1rem;border:1px solid var(--border);border-radius:18px;background:var(--surface);overflow:hidden}
+  .bank-details summary{padding:1.2rem 1.4rem;color:var(--amber);font-weight:750;cursor:pointer}.bank-details[open] summary{border-bottom:1px solid var(--border)}
+  .bank-details dl{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:0;padding:.55rem 1.4rem 1.4rem}.bank-details dl>div{padding:1rem 0;border-bottom:1px solid var(--border)}.bank-details dl>div:nth-child(odd){padding-right:1.2rem}.bank-details dl>div:nth-child(even){padding-left:1.2rem;border-left:1px solid var(--border)}.bank-details dl>.wide{grid-column:1/-1;padding-inline:0;border-left:0}.bank-details dt{color:var(--muted);font-size:.76rem}.bank-details dd{margin:.28rem 0 0;color:var(--text);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.88rem;overflow-wrap:anywhere}
+  @media(max-width:680px){.support-card{grid-template-columns:1fr}.qr-link{max-width:310px;margin-inline:auto}.bank-details dl{grid-template-columns:1fr}.bank-details dl>div,.bank-details dl>div:nth-child(odd),.bank-details dl>div:nth-child(even){padding:1rem 0;border-left:0}.bank-details dl>.wide{grid-column:auto}}
 </style>
